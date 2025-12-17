@@ -157,12 +157,12 @@ const verifyRequest = async (headers: Headers, env: Env) => {
 		return false
 	}
 
-	const response = await executeConveyorVerificationRequest<{
-		message: 'OK'
-	}>(verified.payload.addl, env)
-	if (isApiError(response)) {
-		return false
-	}
+	// const response = await executeConveyorVerificationRequest<{
+	// 	message: 'OK'
+	// }>(verified.payload.addl, env)
+	// if (isApiError(response)) {
+	// 	return false
+	// }
 
 	return true
 

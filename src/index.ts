@@ -14,7 +14,7 @@ interface Env {
   AUTHORIZED_SUBJECT: string
   AUTHORIZED_REALM: string
   AUTHORIZED_CLIENT_ID: string
-  aUTHORIZED_AUDIENCE: string
+  AUTHORIZED_AUDIENCE: string
   BEARER_TOKEN: string
   TURSO_DATABASE_URL?: string;
   TURSO_AUTH_TOKEN?: string;
@@ -151,7 +151,7 @@ const verifyRequest = async (headers: Headers, env: Env) => {
 	if (
 		client_id !== env.AUTHORIZED_CLIENT_ID
 		|| realm !== env.AUTHORIZED_REALM
-		|| aud !== env.aUTHORIZED_AUDIENCE
+		|| aud !== env.AUTHORIZED_AUDIENCE
 		|| subject !== env.AUTHORIZED_SUBJECT
 	) {
 		return false

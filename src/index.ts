@@ -18,8 +18,8 @@ interface Env {
   BEARER_TOKEN: string
   TURSO_DATABASE_URL?: string;
   TURSO_AUTH_TOKEN?: string;
-  CLOUDFLARE_WORKER_SECRET: string;
-  CLOUDFLARE_WORKER_INCOMING_SECRET: string
+  CLOUDFLARE_WORKER_PRIVATE_KEY: string
+  CLOUDFLARE_WORKER_PUBLIC_KEY: string
   CLOUDFLARE_WORKER_AUD: string
   CLOUDFLARE_WORKER_REALM: string
   CLOUDFLARE_WORKER_SUB: string
@@ -27,6 +27,14 @@ interface Env {
   CLOUDFLARE_WORKER_SIGNING_ALGO: 'RS512'
   CONVEYOR_API_URL: string
   CONVEYOR_API_VERSION: string
+  CLERK_API_VERSION: string
+  CLERK_SECRET_KEY: string
+  CLERK_PUBLISHABLE_KEY: string
+  CLER_API_URL: string
+  CLERK_JWT_KEY: string
+  CLERK_PACKAGE_NAME: string
+  CLERK_PACAGE_VERSION: string
+  ENVIRONMENT: string
 }
 
 
@@ -35,8 +43,6 @@ type OrderMetadata = {
 	orderCartId: string
 	orderSongIds: string[]
 	orderStatus: OrderStatus
-
-
 }
 
 type Claims = {
@@ -78,7 +84,7 @@ const signJwt = async (meta: OrderMetadata, env: Env) => {
 		nbf: now,
 		iat: now,
 		addl: meta,
-	}, env.CLOUDFLARE_WORKER_SECRET, {
+	}, env.CLOUDFLARE_WORKER_PRIVATE_KEY, {
 		algorithm: env.CLOUDFLARE_WORKER_SIGNING_ALGO
 	})
 }
@@ -129,7 +135,7 @@ const verifyRequest = async (headers: Headers, env: Env) => {
 		return false
 	}
 	
-	const verified = await verify<Claims>(jwt, env.CLOUDFLARE_WORKER_INCOMING_SECRET, {
+	const verified = await verify<Claims>(jwt, env.CLOUDFLARE_WORKER_PUBLIC_KEY, {
 		algorithm: env.CLOUDFLARE_WORKER_SIGNING_ALGO,
 	})
 	

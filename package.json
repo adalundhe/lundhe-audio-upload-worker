@@ -1,0 +1,19 @@
+{
+	"name": "lundhe-audio-upload-worker",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"deploy": "wrangler deploy",
+		"dev": "wrangler dev",
+		"start": "wrangler dev",
+		"cf-typegen": "wrangler types"
+	},
+	"devDependencies": {
+		"typescript": "^5.5.2",
+		"wrangler": "^4.55.0"
+	},
+	"dependencies": {
+		"@cloudflare/workers-types": "^4.20251217.0",
+		"cookie": "^1.1.1"
+	}
+}
